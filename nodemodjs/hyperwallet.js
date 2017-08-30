@@ -1,8 +1,10 @@
 var request = require('request');
 
-var url = "http://138.75.38.233:3000/"
+// var url = "http://138.75.38.233:3000/"
 
-getWalletByID(12345)
+var url = "http://localhost:3000/"
+
+getWalletByID(123)
 
 function getWalletByID(id) {
     request(url + 'api/Wallet?filter=%7B%22clientID%22%3A%20%22' + id + '%22%7D', function (error, response, body) {
@@ -31,7 +33,7 @@ function insertNewWallet(id, clientid, value) {
         console.log('body:', body); 
     });
 }
-
+// createTransaction(12345,2)
 function createTransaction(walletid, value) {
     request.post(url + 'api/walletTransaction', 
     {form:
