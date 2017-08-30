@@ -1,0 +1,13 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <script src="authClient.js"></script>
+        <script src="http://cdn.auth0.com/js/lock-passwordless-2.2.3.min.js"></script>
+        <label for="userid">User ID</label><input type="text" id="userid" class="validate"><br>
+            
+        <label for="pin" data-error="Pin must be 6 characters!">Pin</label><input type="password" id="pin" class="validate" minlength="6" maxlength="6"><br>
+            
+        <button onclick="sendAuthRequest();">Verify</button>
+    </body>
+</html>

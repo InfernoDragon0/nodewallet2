@@ -1,0 +1,54 @@
+<html>
+
+<head>
+</head>
+
+<body>
+     <script src="https://cdn.auth0.com/js/auth0/8.8/auth0.min.js"></script> 
+    <!-- <script src="http://cdn.auth0.com/js/lock-passwordless-2.2.3.min.js"></script> -->
+    <script>
+        // function loginSMS() {
+        //     var lock = new Auth0LockPasswordless('EtHOvCUbD2F6s46WjSx0inahQV673bq9', 'mushroom.auth0.com');
+        //     lock.sms( {callbackURL: 'http://localhost:5001/tfasuccess'} );
+        // }
+        var webAuth = new auth0.WebAuth({
+            domain: 'mushroom.auth0.com',
+            clientID: 'EtHOvCUbD2F6s46WjSx0inahQV673bq9'
+        });
+        var contactno = "<%= contactno %>"
+            webAuth.passwordlessStart({
+                connection: 'sms',
+                send: 'code',
+                phoneNumber: '+65' + contactno
+
+
+            }, function (err, res) {
+                console.log(err);
+                console.log(res);
+                // handle errors or continue
+            }
+            );  
+        function verify2FA() {
+            webAuth.passwordlessVerify({
+                connection: 'sms',
+                phoneNumber: '+65' + contactno,
+                verificationCode: document.getElementById('2FAcode').value,
+                response_type: "code",
+                redirect_uri: "http://localhost:5001/tfasuccess"
+            }, function (err, res) {
+                console.log(err);
+                console.log(res);
+                // handle errors or continue
+            }
+            );
+        }
+    </script>
+    <p>Press button to 2fa</p>
+    <input type='text' id='2FAcode' />
+    <button type='submit' onclick='verify2FA()'>Verify 2FA</button>
+    
+
+
+</body>
+
+</html>
