@@ -1,6 +1,6 @@
 var request = require('request');
 
-var url = "http://138.75.38.233:3000/"
+var url = "http://localhost:3000/"
 
 getWalletByID(12345)
 
