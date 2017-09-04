@@ -21,11 +21,21 @@ function processTransaction(clientID,merchantID,amount){
             console.log("insufficent funds please top up!")
         }
     })
+};
 
-// getClientWalletByClientID(12345);
+function retrieveTransaction() {
+    request(url + 'api/system/transactions', function (error, response, body) {
+        if (error) {
+            console.log('error:', error); // Print the error if one occurred 
+            return;
+        }
+        console.log('body:', body);
+    });
+};
+
+
 
 function getClientWalletByClientID(id) {
-    console.log("12312321321");
     return new Promise((resolve, reject) => {
         
     request(url + 'api/clientWallet/clientWalletID%3A'+id, function (error, response, body) {
@@ -39,7 +49,6 @@ function getClientWalletByClientID(id) {
     });
     })
 };
-// insertNewClientWallet(123456,123456,123)
 
 function insertNewClientWallet(id, clientid, value) {
     request.post(url + 'api/clientWallet',
@@ -58,8 +67,8 @@ function insertNewClientWallet(id, clientid, value) {
             }
             console.log('body:', body);
         });
-}
-getMerchantWalletByMerchantID(123)
+};
+
 function getMerchantWalletByMerchantID(id) {
     request(url + 'api/merchantWallet/merchantWalletID%3A' + id, function (error, response, body) {
         if (error) {
@@ -68,7 +77,7 @@ function getMerchantWalletByMerchantID(id) {
         }
         console.log('body:', body);
     });
-}
+};
 
 function insertNewMerchantWallet(id, merchantid, value) {
     request.post(url + 'api/merchantWallet',
@@ -87,8 +96,8 @@ function insertNewMerchantWallet(id, merchantid, value) {
             }
             console.log('body:', body);
         });
-}
-
+};
+createTransactionTopUpWallet(12345,100);
 function createTransaction(clientWalletID, merchantWalletID, value) {
     request.post(url + 'api/walletTransactionPay',
         {
@@ -108,15 +117,47 @@ function createTransaction(clientWalletID, merchantWalletID, value) {
             console.log('createTransaction-body:', body);
             console.log("Transaction Sucess!")
         });
-}
-// retrieveTransaction();
-function retrieveTransaction() {
-    request(url + 'api/system/transactions', function (error, response, body) {
-        if (error) {
-            console.log('error:', error); // Print the error if one occurred 
-            return;
-        }
-        console.log('body:', body);
-    });
-}
 };
+
+function createTransactionRefund(clientWalletID, merchantWalletID, value) {
+    request.post(url + 'api/walletTransactionRefund',
+        {
+            form:
+            {
+                "$class": "org.acme.jenetwork.walletTransactionRefund",
+                "asset": "resource:org.acme.jenetwork.clientWallet#clientWalletID:" + clientWalletID,
+                "asset2": "resource:org.acme.jenetwork.merchantWallet#merchantWalletID:" + merchantWalletID,
+                "amount": value
+
+            }
+        }, function (error, response, body) {
+            if (error) {
+                console.log('error:', error); // Print the error if one occurred 
+                return;
+            }
+            console.log('createTransactionRefund-body:', body);
+            console.log("Transaction Sucess!")
+        });
+};
+
+function createTransactionTopUpWallet(clientWalletID, value) {
+    request.post(url + 'api/walletTransactionTopUp',
+        {
+            form:
+            {
+                "$class": "org.acme.jenetwork.walletTransactionTopUp",
+                "asset": "resource:org.acme.jenetwork.clientWallet#clientWalletID:" + clientWalletID,
+                "amount": value
+
+            }
+        }, function (error, response, body) {
+            if (error) {
+                console.log('error:', error); // Print the error if one occurred 
+                return;
+            }
+            console.log('createTransactionTopUpWallet-body:', body);
+            console.log("Transaction Sucess!")
+        });
+};
+
+
