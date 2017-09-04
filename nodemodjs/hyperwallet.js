@@ -4,31 +4,30 @@ var request = require('request');
 
 var url = "http://localhost:3000/"
 
-// getWalletByID(12345);
+
 // insertNewClientWallet(123,123,0)
 // getClientWalletByClientID(12345);
 
-// processTransaction(12345,123,10);
+// processTransaction(123,123,50);
 
 function processTransaction(clientID,merchantID,amount){
     var vpromise = getClientWalletByClientID(clientID)
     vpromise.then((value)=>{
-        console.log("HERE"+value.value);
         if(value.value-amount >= 0){
             createTransaction(clientID,merchantID,amount)
-            console.log("Transaction Sucess!")
+            
         }
         else{
             console.log("insufficent funds please top up!")
         }
     })
-}
 
-// getClientWalletByClientID(123);
-
+// getClientWalletByClientID(12345);
 
 function getClientWalletByClientID(id) {
+    console.log("12312321321");
     return new Promise((resolve, reject) => {
+        
     request(url + 'api/clientWallet/clientWalletID%3A'+id, function (error, response, body) {
         if (error) {
             console.log('error:', error); // Print the error if one occurred 
@@ -40,7 +39,7 @@ function getClientWalletByClientID(id) {
     });
     })
 };
-
+// insertNewClientWallet(123456,123456,123)
 
 function insertNewClientWallet(id, clientid, value) {
     request.post(url + 'api/clientWallet',
@@ -60,7 +59,7 @@ function insertNewClientWallet(id, clientid, value) {
             console.log('body:', body);
         });
 }
-
+getMerchantWalletByMerchantID(123)
 function getMerchantWalletByMerchantID(id) {
     request(url + 'api/merchantWallet/merchantWalletID%3A' + id, function (error, response, body) {
         if (error) {
@@ -106,10 +105,11 @@ function createTransaction(clientWalletID, merchantWalletID, value) {
                 console.log('error:', error); // Print the error if one occurred 
                 return;
             }
-            console.log('body:', body);
+            console.log('createTransaction-body:', body);
+            console.log("Transaction Sucess!")
         });
 }
-retrieveTransaction();
+// retrieveTransaction();
 function retrieveTransaction() {
     request(url + 'api/system/transactions', function (error, response, body) {
         if (error) {
@@ -119,3 +119,4 @@ function retrieveTransaction() {
         console.log('body:', body);
     });
 }
+};
