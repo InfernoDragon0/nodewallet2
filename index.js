@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // supportting POST data
 app.use(express.static(path.join(__dirname, '/js')));
 app.use(express.static(path.join(__dirname, '/css')));
 app.use(express.static(path.join(__dirname, '/img')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 //test
 /**
@@ -36,6 +37,9 @@ console.log("=Listening on port " + port);
 
 app.get('/loginpin', function (req, res) { //base page
     res.render(path.join(__dirname + '/index.html'));
+});
+app.get('/test', function (req, res) { //react page
+    res.render(path.join(__dirname + '/tester.html'));
 });
 
 app.post('/authenticate', function (req, res) { //base page

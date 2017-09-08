@@ -24,7 +24,10 @@
     "documentdb": "^1.12.2",
     "ejs": "latest",
     "express": "latest",
-    "express-session": "^1.15.5"
+    "express-session": "^1.15.5",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "^1.0.13"
   },
   "devDependencies": {
     "request": "^2.81.0"

@@ -22,7 +22,7 @@ function processTransaction(clientID,merchantID,amount){
         }
     })
 };
-
+// retrieveTransaction();
 function retrieveTransaction() {
     request(url + 'api/system/transactions', function (error, response, body) {
         if (error) {
@@ -97,7 +97,7 @@ function insertNewMerchantWallet(id, merchantid, value) {
             console.log('body:', body);
         });
 };
-createTransactionTopUpWallet(12345,100);
+// createTransactionTopUpWallet(12345,100);
 function createTransaction(clientWalletID, merchantWalletID, value) {
     request.post(url + 'api/walletTransactionPay',
         {
