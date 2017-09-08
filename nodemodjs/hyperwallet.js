@@ -10,6 +10,16 @@ var url = "http://localhost:3000/"
 
 // processTransaction(123,123,50);
 
+module.exports.processTransaction=processTransaction;
+module.exports.retrieveTransaction=retrieveTransaction;
+module.exports.getClientWalletByClientID=getClientWalletByClientID;
+module.exports.insertNewClientWallet=insertNewClientWallet;
+module.exports.getMerchantWalletByMerchantID=getMerchantWalletByMerchantID;
+module.exports.insertNewMerchantWallet=insertNewMerchantWallet;
+module.exports.createTransaction=createTransaction;
+module.exports.createTransactionRefund=createTransactionRefund;
+module.exports.createTransactionTopUpWallet=createTransactionTopUpWallet;
+
 function processTransaction(clientID,merchantID,amount){
     var vpromise = getClientWalletByClientID(clientID)
     vpromise.then((value)=>{
@@ -24,12 +34,15 @@ function processTransaction(clientID,merchantID,amount){
 };
 // retrieveTransaction();
 function retrieveTransaction() {
+    return new Promise((resolve, reject) => {
     request(url + 'api/system/transactions', function (error, response, body) {
         if (error) {
             console.log('error:', error); // Print the error if one occurred 
             return;
         }
         console.log('body:', body);
+        resolve(body);
+    });
     });
 };
 
@@ -97,7 +110,7 @@ function insertNewMerchantWallet(id, merchantid, value) {
             console.log('body:', body);
         });
 };
-// createTransactionTopUpWallet(12345,100);
+createTransaction(123,12345,5)
 function createTransaction(clientWalletID, merchantWalletID, value) {
     request.post(url + 'api/walletTransactionPay',
         {
