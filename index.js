@@ -9,7 +9,7 @@ const express = require('express'); //express is good
 const app = express();
 //const http = require('http'); //http stuff, not needed yet
 //const fs = require('fs'); //filesystem, not needed yet
-const port = 5001;
+const port = process.env.PORT || 5001;
 
 app.engine('html', require('ejs').renderFile); //can use jsx also
 app.use(session({
